@@ -1,4 +1,4 @@
-
+from operator import itemgetter, attrgetter
 print 'hello'
 
 class AltValue():
@@ -54,5 +54,40 @@ class Creature():
 		self.atk = AddValue(atk)
 		self.dfs = AddValue(dfs)
 
+class BattleUnit():
+	def __init__(self):
+		self.activeTime = 0.0
+
+	def __str__(self):
+		return str(self.activeTime)
+
+	def active(self):
+		pass
+
+class BattleTime():
+	def __init__(self):
+		self.units = []
+
+	def run(self):
+		while (len(self.units) >= 2):
+			unit = self.units[0]
+			unit.active()
+			self.units.sort(key=attrgetter('activeTime'))
+			for u in self.units:
+				print u
+			self.units = []
+
 c = Creature("shanhao", 100, 10, 5)
+b = BattleUnit()
+b.activeTime = 14.3
+bb = BattleUnit()
+bb.activeTime = 1.0
+bbb = BattleUnit()
+bbb.activeTime = 5.0
+
+t = BattleTime()
+t.units.append(b)
+t.units.append(bb)
+t.units.append(bbb)
+t.run()
 

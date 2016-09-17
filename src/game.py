@@ -1,8 +1,9 @@
 from operator import itemgetter, attrgetter
 from values import AltValue, AddValue
 
-print 'hello'
-
+import config
+import json
+import os
 
 
 class Creature():
@@ -34,5 +35,25 @@ class BattleTime():
 				print u
 			self.units = []
 
+class Game():
+	def __init__(self, name=""):
+		files = os.listdir(config.savePath)
+		for f in files:
+			print f + " "
+		print "\n"
+		if name == "":
+			characterName = input("New Game Character Name:\n")
+			print characterName
+			self.sfile = os.path.join(config.savePath, characterName)
+			print self.sfile
+		else:
+			self.sfile = os.path.join(config.savePath, name)
+		self.load(self.sfile)
 
+	def load(self):
+		with open(self.sfile, "rb") as saveFile:
+			self.data = json.loads(saveFile.read())
 
+	def save(self):
+		with open(self.sfile, "wb") as saveFile:
+			saveFile.write(json.dumps(self.data))

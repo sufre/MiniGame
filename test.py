@@ -1,4 +1,5 @@
 from src import *
+import json
 
 c = game.Creature("shanhao", 100, 10, 5)
 b = game.BattleUnit()

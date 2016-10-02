@@ -35,25 +35,20 @@ class BattleTime():
 				print u
 			self.units = []
 
-class Game():
-	def __init__(self, name=""):
-		files = os.listdir(config.savePath)
-		for f in files:
-			print f + " "
-		print "\n"
-		if name == "":
-			characterName = input("New Game Character Name:\n")
-			print characterName
-			self.sfile = os.path.join(config.savePath, characterName)
-			print self.sfile
-		else:
-			self.sfile = os.path.join(config.savePath, name)
-		self.load(self.sfile)
+class Game(dict):
+	def __getattr__(self, name):
+		try:
+			return self[name]
+		except KeyError:
+			raise AttributeError(name)
+			
+	def __setattr__(self, name, value):
+		self[name] = value
 
-	def load(self):
-		with open(self.sfile, "rb") as saveFile:
-			self.data = json.loads(saveFile.read())
+	def __init__(self, saveFile):
+		with open(saveFile, "rb") as sfile:
+			self.update(json.loads(sfile.read()))
 
 	def save(self):
-		with open(self.sfile, "wb") as saveFile:
-			saveFile.write(json.dumps(self.data))
+		with open(self.saveFile, "wb") as sfile:
+			sfile.write(json.dumps(self))

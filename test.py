@@ -17,19 +17,10 @@ t.run()
 
 '''
 
-d = {}
-d["a"] = "aaa"
-
-e = {}
-e = d
-print e
-
-with open("./save/test1.save", "wb") as file:
-    file.write(json.dumps(d))
+def newgame_test():
+    g = game.Game().new("./save/newgametest.save")
 
 def gameTest():
     g = game.Game("./save/test1.save")
     #print g.a
     print g
-
-gameTest()

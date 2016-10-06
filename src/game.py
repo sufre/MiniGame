@@ -16,9 +16,6 @@ class BattleUnit():
 	def __init__(self):
 		self.activeTime = 0.0
 
-	def __str__(self):
-		return str(self.activeTime)
-
 	def active(self):
 		pass
 
@@ -31,9 +28,6 @@ class BattleTime():
 			unit = self.units[0]
 			unit.active()
 			self.units.sort(key=attrgetter('activeTime'))
-			for u in self.units:
-				print u
-			self.units = []
 
 class Game(dict):
 	def __getattr__(self, name):
@@ -45,10 +39,17 @@ class Game(dict):
 	def __setattr__(self, name, value):
 		self[name] = value
 
-	def __init__(self, saveFile):
+	def new(self, saveFile):
+		self.saveFile = saveFile
+		self.save()
+		return self
+
+	def load(self, saveFile):
 		with open(saveFile, "rb") as sfile:
 			self.update(json.loads(sfile.read()))
+		return self
 
 	def save(self):
 		with open(self.saveFile, "wb") as sfile:
-			sfile.write(json.dumps(self))
+			sfile.write(json.dumps(self, default=lambda obj: obj.__dict__))
+		return self

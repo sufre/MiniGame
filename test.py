@@ -24,3 +24,5 @@ def gameTest():
     g = game.Game("./save/test1.save")
     #print g.a
     print g
+
+print "test finish!"

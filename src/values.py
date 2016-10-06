@@ -1,4 +1,6 @@
+#coding:utf-8
 
+#最大值以及一个0~最大值的变值
 class AltValue():
 	def __init__(self, v):
 		self.max = v
@@ -25,6 +27,7 @@ class AltValue():
 			self.v = v
 		return self.v
 
+#原始值不可变，变值可正可负，计算值不可小于0
 class AddValue():
 	def __init__(self, v):
 		self.v = v

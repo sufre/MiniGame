@@ -49,12 +49,7 @@ class Game(dict):
 			
 	def __setattr__(self, name, value):
 		self[name] = value
-
-	def new(self, saveFile):
-		self.saveFile = saveFile
-		self.save()
-		return self
-
+	
 	def load(self, saveFile):
 		with open(saveFile, "rb") as sfile:
 			self.update(json.loads(sfile.read()))
@@ -64,3 +59,19 @@ class Game(dict):
 		with open(self.saveFile, "wb") as sfile:
 			sfile.write(json.dumps(self, default=lambda obj: obj.__dict__))
 		return self
+
+	def new(self, saveFile):
+		self.saveFile = saveFile
+		self.gold = 0
+		self.members = []
+		self.teams = []
+		self.houses = []
+		self.save()
+		return self
+
+	def info(self):
+		return \
+		"\tgold: " + str(self.gold) + "\n" +\
+		"\tmembers: " + str(len(self.members)) + "\n" +\
+		"\tteams: " + str(len(self.teams)) + "\n" +\
+		"\thouses: " + str(len(self.houses))

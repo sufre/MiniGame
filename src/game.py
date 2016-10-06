@@ -1,3 +1,4 @@
+#coding:utf-8
 from operator import itemgetter, attrgetter
 from values import AltValue, AddValue
 
@@ -7,14 +8,24 @@ import os
 
 
 class Creature():
-	def __init__(self, name, hp, atk, dfs):
+	def __init__(self, name, itl, bod, hp, mp, atk, dfs, spd):
+		#悟性、根骨，不自然成长
+		self.itl = AddValue(itl)
+		self.bod = AddValue(bod)
+
+		#血量、攻击力，升级成长
 		self.hp = AltValue(hp)
 		self.atk = AddValue(atk)
+
+		#内力、防御、速度，修炼成长
+		self.mp = AltValue(mp)
 		self.dfs = AddValue(dfs)
+		self.spd = AddValue(spd)
 
 class BattleUnit():
 	def __init__(self):
 		self.activeTime = 0.0
+		self.pos = (0,0)
 
 	def active(self):
 		pass

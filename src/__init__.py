@@ -1,2 +1,2 @@
 
-__all__ = ["game", "values"]
+__all__ = ["game", "values", "console"]

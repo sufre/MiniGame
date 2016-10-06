@@ -25,4 +25,9 @@ def gameTest():
     #print g.a
     print g
 
+def console_test():
+    c = console.GameClient()
+    c.cmdloop()
+
+console_test()
 print "test finish!"
